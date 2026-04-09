@@ -529,6 +529,12 @@
             color: var(--pink-dark);
             font-weight: 700;
         }
+        #ash-btn {
+    position: absolute;
+    transition: all 0.2s cubic-bezier(0.17, 0.67, 0.83, 0.67); /* Thoda jhatke se bhagega toh aur mushkil hoga */
+    white-space: nowrap;
+    cursor: not-allowed; /* Chidhane ke liye cursor bhi badal do */
+}
     </style>
 
 
@@ -661,7 +667,23 @@
     </div>
 
     <script>
+const ashBtn = document.getElementById('ash-btn');
 
+ashBtn.addEventListener('mouseover', () => {
+    // Screen ki total width aur height nikalna
+    const screenWidth = window.innerWidth - ashBtn.offsetWidth;
+    const screenHeight = window.innerHeight - ashBtn.offsetHeight;
+
+    // Poori screen par kahin bhi random position generate karna
+    const randomX = Math.floor(Math.random() * screenWidth);
+    const randomY = Math.floor(Math.random() * screenHeight);
+
+    // Button ko naye coordinates par bhejna
+    ashBtn.style.position = 'fixed'; // Taki container se bahar bhi bhage
+    ashBtn.style.left = randomX + 'px';
+    ashBtn.style.top = randomY + 'px';
+    ashBtn.style.zIndex = '1000'; // Sabse upar dikhe
+});
         function next(id) {
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
