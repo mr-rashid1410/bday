@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Aleenuu Day | 2026</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --pink-dark: #fb6f92;
+            --pink-mid: #ff85a1;
+            --gold: #d4af37;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: default;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff0f3 0%, #ffc4d6 100%);
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #crystal-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .crystal {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            animation: float 12s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0.6;
+            }
+        }
+
+        .container {
+            z-index: 10;
+            width: 95%;
+            max-width: 850px;
+            text-align: center;
+            position: relative;
+        }
+
+        section {
+            display: none;
+            background: rgba(255, 255, 255, 0.7);
+            /* Halka transparent white */
+            backdrop-filter: blur(15px);
+            /* Piche ka background halka dhundla dikhega */
+            -webkit-backdrop-filter: blur(15px);
+
+            padding: 40px;
+            border-radius: 35px;
+            /* Thode bade aur soft corners */
+
+            /* Sirf ek bahut hi patla aur classy border */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+
+            /* Shadow ko ekdum "Soft" rakhte hain, jaise box hawa mein tair raha ho */
+            box-shadow: 0 15px 35px rgba(251, 111, 146, 0.1);
+
+            transition: transform 0.3s ease;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Jab mouse upar jaye toh bas halka sa "Settle" ho jaye */
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(251, 111, 146, 0.15);
+        }
+
+        section.active {
+            display: block;
+            animation: entrance 0.8s ease-out;
+        }
+
+        section::after {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 50%;
+            height: 300%;
+            background: linear-gradient(to right,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.4) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            transform: rotate(45deg);
+            animation: shineEffect 6s infinite ease-in-out;
+        }
+
+        @keyframes shineEffect {
+            0% {
+                left: -100%;
+            }
+
+            20% {
+                left: 200%;
+            }
+
+            100% {
+                left: 200%;
+            }
+        }
+
+        @keyframes entrance {
+            0% {
+                transform: scale(0.5) translateY(100px) rotateX(-45deg);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1) translateY(0) rotateX(0deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #fb6f92;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .fancy-font {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: var(--gold);
+        }
+
+        .roast-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        .btn-main {
+            background: linear-gradient(45deg, #fb6f92, #ff85a1);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(251, 111, 146, 0.3);
+        }
+
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(251, 111, 146, 0.4);
+        }
+
+        .time-display {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--pink-dark);
+            margin: 5px 0;
+        }
+
+        .time-subtext {
+            font-size: 1rem;
+            color: #b5838d;
+            font-weight: 600;
+        }
+
+        .nakhra-bar-container {
+            width: 85%;
+            background: #eee;
+            height: 16px;
+            border-radius: 50px;
+            margin: 20px auto;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .nakhra-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff85a1, #fb6f92);
+            transition: width 0.1s linear;
+        }
+
+        #nakhraStatus {
+            color: var(--pink-dark);
+            font-size: 1.5rem;
+            margin: 8px 0;
+            font-weight: 800;
+        }
+
+        /* S6 Memories - Aesthetic Gallery */
+        .memory-vault {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            perspective: 1000px;
+            /* 3D effect ke liye */
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 20px 10px;
+            width: 160px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #eee;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Har photo ko thoda alag angle dena */
+        .polaroid:nth-child(even) {
+            transform: rotate(3deg);
+        }
+
+        .polaroid:nth-child(odd) {
+            transform: rotate(-3deg);
+        }
+
+        .polaroid:nth-child(3n) {
+            transform: rotate(5deg) translateY(-10px);
+        }
+
+        .polaroid:hover {
+            transform: scale(1.15) rotate(0deg) translateY(-15px) !important;
+            z-index: 50;
+            box-shadow: 0 20px 40px rgba(251, 111, 146, 0.3);
+            border-color: var(--pink-dark);
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 2px;
+            filter: sepia(20%);
+            /* Thoda vintage look */
+        }
+
+        .polaroid p {
+            font-family: 'Dancing Script';
+            font-size: 1rem;
+            margin-top: 12px;
+            color: #444;
+            font-weight: bold;
+        }
+
+        /* Pin effect (Chota sa circle photo ke upar) */
+        .polaroid::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: rgba(251, 111, 146, 0.6);
+            border-radius: 50%;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 25px 10px;
+            width: 140px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: 0.4s;
+        }
+
+        .polaroid:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .polaroid p {
+            font-family: 'Dancing Script';
+            font-size: 0.85rem;
+            margin-top: 8px;
+            color: #555;
+        }
+
+        .wish-card {
+            text-align: left;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 20px;
+            border-left: 5px solid var(--pink-dark);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .wish-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #444;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .birthday-img {
+            width: 180px;
+            border: 6px solid white;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+
+        #ash-btn {
+            position: absolute;
+            transition: 0.2s ease-out;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .birthday-img {
+                width: 150px;
+            }
+
+            .container {
+                width: 98%;
+            }
+
+            section {
+                padding: 20px;
+            }
+        }
+
+        /* Mesh Background Wrapper */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            /* Sabse piche */
+            background: #fff0f3;
+            /* Base color */
+            overflow: hidden;
+        }
+
+        /* Glassy Noise Texture (Pro Look) */
+        .noise-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Animated Blobs */
+        .blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            filter: blur(80px);
+            border-radius: 50%;
+            opacity: 0.5;
+            z-index: 1;
+            animation: mesh-move 25s infinite alternate ease-in-out;
+        }
+
+        .b1 {
+            background: #fb6f92;
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .b2 {
+            background: #ff85a1;
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -5s;
+            width: 700px;
+            height: 700px;
+        }
+
+        .b3 {
+            background: #d4af37;
+            /* Gold touch */
+            top: 40%;
+            left: 30%;
+            opacity: 0.2;
+            width: 500px;
+            height: 500px;
+            animation: mesh-move 30s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes mesh-move {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(100px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-50px, 100px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(50px, 50px) scale(1.05);
+            }
+        }
+
+        .polaroid::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(251, 111, 146, 0);
+            transition: 0.3s;
+            z-index: -1;
+        }
+
+        .polaroid:hover::after {
+            box-shadow: 0 0 30px rgba(251, 111, 146, 0.6);
+        }
+
+        .birthday-img {
+            width: 220px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 25px;
+            border: 5px solid white;
+            /* Soft Shadow */
+            box-shadow: 0 10px 30px rgba(251, 111, 146, 0.3);
+            transition: 0.4s ease-in-out;
+        }
+
+        .birthday-img:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 15px 40px rgba(251, 111, 146, 0.5);
+        }
+
+        .wish-card {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 20px;
+            border-radius: 20px;
+            border-left: 5px solid var(--pink-dark);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .wish-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .wish-text b {
+            color: var(--pink-dark);
+            font-weight: 700;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="mesh-bg">
+        <div class="blob-wrapper">
+            <div class="blob b1"></div>
+            <div class="blob b2"></div>
+            <div class="blob b3"></div>
+        </div>
+        <div class="noise-overlay"></div>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="WhatsApp Audio 2026-04-07 at 1.39.21 PM.mpeg" type="audio/mpeg">
+    </audio>
+
+    <div id="musicControl" onclick="toggleMusic()"
+        style="position: fixed; top: 20px; right: 20px; z-index: 1001; background: var(--glass); padding: 10px; border-radius: 50%; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid var(--pink-mid); width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+        <span id="musicIcon" style="font-size: 1.2rem;">🎵</span>
+    </div>
+
+    <div id="crystal-bg"></div>
+
+    <div class="container">
+
+        <section id="s1" class="active">
+            <h1>The Aleenuu Special!</h1>
+            <p class="fancy-font">The Celebration of a Legend...</p>
+            <p class="roast-text">Ek saal aur buddhe ho gaye par harkatein wahi hain. 😂</p>
+            <button class="btn-main" onclick="next('s2')">Let's Go ✨</button>
+        </section>
+
+        <section id="s2">
+            <h1>Royal Entry</h1>
+            <p class="roast-text">Sirf "Nakhre-Baaz Queen" hi andar ja sakti hai!</p>
+            <input type="text" id="nameKey"
+                style="width: 85%; padding: 14px; border-radius: 20px; border: 2px solid #ffc4d6; text-align: center; margin-top: 15px; outline: none; font-size: 1.1rem; color: #333;"
+                placeholder="Enter Your Name Queen...">
+            <button class="btn-main" onclick="checkUnlock()">Unlock Magic 💅</button>
+        </section>
+
+        <section id="s3">
+            <h1>Honesty Check</h1>
+            <h3 style="font-weight: 400; color: #444; margin-bottom: 20px;">Duniya ka sabse bada "Badmash aur Dandaa
+                Bacha" kaun hai?</h3>
+            <div id="gameArea"
+                style="position: relative; height: 200px; display: flex; align-items: center; justify-content: center; gap: 30px;">
+                <button class="btn-main" style="margin-top:0;" onclick="next('s4')">Aleenuu</button>
+                <button id="ash-btn" class="btn-main" style="margin-top:0;">Ashshuu</button>
+            </div>
+            <p class="roast-text">Ashshuu ko haath bhi nahi lagana! 😂</p>
+        </section>
+
+        <section id="s4">
+            <h1>The 2-Minute Scam</h1>
+            <p class="time-subtext">"Basss 2 min me aare hai ruko..."</p>
+            <div class="time-display"><span id="timeVal">2</span> Min</div>
+            <input type="range" min="2" max="60" value="2" style="width: 80%; accent-color: var(--pink-dark);"
+                id="timeSlider" oninput="updateTime(this.value)">
+            <p id="timeMsg"
+                style="font-weight: bold; color: #ff85a1; height: 30px; font-size: 0.95rem; margin-top: 10px;">Thodi toh
+                sharam karo Aleenuu! 😂</p>
+            <button class="btn-main" id="timeNextBtn" style="display: none;" onclick="next('s5')">Accept The Truth
+                😜</button>
+        </section>
+
+        <section id="s5">
+            <h1>Nakhra Meter</h1>
+            <p class="fancy-font" style="font-size: 1.5rem; color: #d48337;">Send karne m extreme level ke nakhre...</p>
+            <div class="nakhra-bar-container">
+                <div class="nakhra-fill" id="nakhraBar"></div>
+            </div>
+            <h2 id="nakhraStatus">0%</h2>
+            <p class="roast-text" id="nakhraAdvice">System load nahi kar paa raha itne nakhre!</p>
+            <button class="btn-main" id="nakhraNext" style="display:none;" onclick="next('s6')">Show Memories
+                💖</button>
+        </section>
+
+        <section id="s6">
+            <h1>The Hall of Infamy</h1>
+            <p class="roast-text">Yeh hain hamari "Certified Miss Innocent" ke kartoot! 😂</p>
+            <div class="memory-vault">
+                <div class="polaroid" onclick="openImage(this.querySelector('img').src)"><img
+                        src="WhatsApp Image 2026-04-05 at 10.25.59 PM.jpeg" alt="1"></div>
+                <div class="polaroid" onclick="openImage(this.querySelector('img').src)"><img
+                        src="WhatsApp Image 2026-04-05 at 10.26.00 PM (1).jpeg" alt="2"></div>
+                <div class="polaroid" onclick="openImage(this.querySelector('img').src)"><img
+                        src="WhatsApp Image 2026-04-05 at 10.26.00 PM (2).jpeg" alt="3"></div>
+                <div class="polaroid" onclick="openImage(this.querySelector('img').src)"><img
+                        src="WhatsApp Image 2026-04-05 at 10.26.00 PM.jpeg" alt="4"></div>
+                <div class="polaroid" onclick="openImage(this.querySelector('img').src)"><img
+                        src="WhatsApp Image 2026-04-05 at 10.26.01 PM (1).jpeg" alt="5"></div>
+                <div class="polaroid" onclick="openImage(this.querySelector('img').src)"><img
+                        src="WhatsApp Image 2026-04-05 at 10.26.01 PM.jpeg" alt="6"></div>
+                <div class="polaroid" onclick="openImage(this.querySelector('img').src)"><img
+                        src="WhatsApp Image 2026-04-05 at 10.26.02 PM (1).jpeg" alt="7"></div>
+            </div>
+            <button class="btn-main" onclick="next('s7')">The Finale ✨</button>
+        </section>
+
+        <section id="s7">
+            <h1>Happy Birthday, Aleenuu! 🎂</h1>
+            <div
+                style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center; justify-content: center; margin-top: 15px;">
+                <img src="IMG_20260407_164310.jpg.jpeg" class="birthday-img" alt="Queen">
+                <div style="text-align: left; max-width: 320px;">
+                    <div class="wish-card">
+                        <p class="wish-text">
+                            To the person who knows my <b>silence</b> as well as my <b>madness</b>—Happy Birthday! 🎂
+                            <br><br>
+                            May this year bring you all the happiness and love you deserve.
+                            Hamesha aise hi muskurate raho aur humari dosti ka ye <b>diwanaapan</b> hamesha rahe!
+                            <br><br>
+                            <b>Stay blessed, Aleenuu! 💖✨</b>
+                        </p>
+                    </div>
+                    <button class="btn-main"
+                        style="background:white; color:var(--pink-dark); border:2px solid var(--pink-dark); width: 100%; padding: 10px; margin-top: 15px;"
+                        onclick="sideBlasts(); centerBlast();">✨ Give Me Magic ✨</button>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <button onclick="window.location.reload();"
+                    style="background:none; border:none; color:var(--pink-dark); text-decoration:underline; font-size:0.8rem; font-weight:600; cursor:pointer; opacity: 0.7;">↺
+                    Play Again, Drama Queen!</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+
+        function next(id) {
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+
+            if (id === 's7') {
+                // Bina click kiye enter hote hi blast!
+                setTimeout(partyTime, 300);
+            }
+        }
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            // Blobs ko thoda sa mouse ke direction mein move karna
+            const blobs = document.querySelectorAll('.blob');
+            blobs.forEach((blob, index) => {
+                const speed = (index + 1) * 20;
+                blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+        const music = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicIcon.innerText = '🔇';
+            } else {
+                music.play();
+                musicIcon.innerText = '🎵';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function next(id) {
+            startMusicOnFirstClick();
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            // ... baki ka code
+        }
+
+        // Browser restriction bypass karne ke liye pehle click par music start karna
+        function startMusicOnFirstClick() {
+            if (!isPlaying) {
+                music.play().then(() => {
+                    isPlaying = true;
+                    musicIcon.innerText = '🎵';
+                }).catch(err => console.log("Music play failed:", err));
+            }
+        }
+        // Crystal Background Logic
+        const bg = document.getElementById('crystal-bg');
+        for (let i = 0; i < 15; i++) {
+            const c = document.createElement('div');
+            c.className = 'crystal';
+            c.style.left = Math.random() * 100 + 'vw';
+            c.style.top = Math.random() * 100 + 'vh';
+            const size = Math.random() * 40 + 20;
+            c.style.width = size + 'px';
+            c.style.height = size + 'px';
+            c.style.animationDelay = Math.random() * 8 + 's';
+            bg.appendChild(c);
+        }
+
+        function next(id) {
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if (id === 's5') startNakhraMeter();
+            if (id === 's7') { sideBlasts(); centerBlast(); }
+            else centerBlast();
+        }
+
+        function checkUnlock() {
+            const val = document.getElementById('nameKey').value.toLowerCase().trim();
+            if (val === 'aleenuu' || val === 'aleenu') next('s3');
+            else alert("Error: Sirf Queen Aleenuu allowed hai yahan! 😤");
+        }
+
+        function updateTime(val) {
+            document.getElementById('timeVal').innerText = val;
+            const msg = document.getElementById('timeMsg');
+            const btn = document.getElementById('timeNextBtn');
+            if (val < 35) {
+                msg.innerText = "Chalo jhoote... Itnaa jhoot Itnaa jhoot! 🤨";
+                btn.style.display = "none";
+            } else {
+                msg.innerText = "Ab hui na baat! Ye hai apkaa asli time. 😂";
+                btn.style.display = "inline-block";
+            }
+        }
+
+        function startNakhraMeter() {
+            let count = 0;
+            const bar = document.getElementById('nakhraBar');
+            const status = document.getElementById('nakhraStatus');
+            const interval = setInterval(() => {
+                count += 1;
+                if (count > 100) {
+                    clearInterval(interval);
+                    status.innerText = "1000% (Extreme Drama!)";
+                    document.getElementById('nakhraNext').style.display = "inline-block";
+                } else {
+                    status.innerText = (count * 10) + "%";
+                    bar.style.width = count + "%";
+                }
+            }, 30);
+        }
+
+        // Confetti
+        // Confetti Effects - POWERED UP VERSION 🚀
+        function centerBlast() {
+            // Particle count 150 se 400 kar diya (zyada kachra udega! 😂)
+            confetti({
+                particleCount: 400,
+                spread: 100,
+                origin: { y: 0.6 },
+                colors: ['#fb6f92', '#ff85a1', '#d4af37', '#ffffff']
+            });
+        }
+
+        function sideBlasts() {
+            // Duration 2000 se 5000ms (5 seconds) kar di
+            var end = Date.now() + 5000;
+
+            (function frame() {
+                // Left side blast
+                confetti({
+                    particleCount: 7,
+                    angle: 60,
+                    spread: 65,
+                    origin: { x: 0 },
+                    colors: ['#fb6f92', '#ffffff', '#ffc4d6']
+                });
+                // Right side blast
+                confetti({
+                    particleCount: 7,
+                    angle: 120,
+                    spread: 65,
+                    origin: { x: 1 },
+                    colors: ['#fb6f92', '#ffffff', '#ffc4d6']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+        // Ashshuu Button Escape (Desktop & Mobile)
+        const ashBtn = document.getElementById('ash-btn');
+        const area = document.getElementById('gameArea');
+
+        const moveBtn = (e) => {
+            const x = Math.random() * (area.clientWidth - 100);
+            const y = Math.random() * (area.clientHeight - 50);
+            ashBtn.style.left = x + 'px';
+            ashBtn.style.top = y + 'px';
+        };
+
+        function openImage(src) {
+            const overlay = document.getElementById('imageOverlay');
+            const fullImg = document.getElementById('fullImage');
+            fullImg.src = src;
+            overlay.style.display = 'flex'; // Show overlay
+        }
+
+
+        function closeImage() {
+            document.getElementById('imageOverlay').style.display = 'none';
+        }
+
+        ashBtn.addEventListener('mouseover', moveBtn);
+        ashBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveBtn(); });
+    </script>
+    <div id="imageOverlay" onclick="closeImage()"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; cursor:zoom-out; align-items:center; justify-content:center;">
+        <img id="fullImage" src=""
+            style="max-width:90%; max-height:80%; border:5px solid white; border-radius:10px; box-shadow:0 0 30px rgba(251,111,146,0.5);">
+        <p style="position:absolute; bottom:20px; color:white; font-family:'Montserrat'; font-size:0.8rem;">Tap anywhere
+            to close ×</p>
+
+</body>
+
+</html>
